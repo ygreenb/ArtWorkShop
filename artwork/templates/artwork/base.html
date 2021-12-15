@@ -7,51 +7,13 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
     <link rel="stylesheet" href="{% static 'artwork/bootstrap/bootstrap.min.css' %}" type="text/css" media="screen"> <!-- static 폴더 아래 '파일위치' -->
-    <link rel="stylesheet" href="{% static 'artwork/css/blog-post.css' %}" type="text/css" media="screen"> <!-- static 폴더 아래 '파일위치' -->
-    <link href="{% static 'artwork/css/base.css' %}" rel="stylesheet" type="text/css" media="screen">
+    <link rel="stylesheet" href="{% static 'artwork/css/base.css' %}" type="text/css" media="screen">
     <script src="https://kit.fontawesome.com/6c6fea15a8.js" crossorigin="anonymous"></script>
-    <title>{% block head_title %}Books Homepage - Start Bootstrap Template{% endblock %}</title>
+    <title>{% block head_title %}ArtWork{% endblock %}</title>
 </head>
 <body>
-
-<!-- Header-->
-<header class="bg-dark py-2">
-    {% include 'artwork/navbar.html' %}
-    <div class="container py-4 px-4 px-lg-2">
-        <div class="text-white py-4">
-            <h1 class="display-4 fw-bolder">ART LIST</h1>
-            <h6 class="lead fw-normal text-white-50 mb-0">커미션은 상업적인 용도로 사용할 수 없습니다.</h6>
-        </div>
-    </div>
-    <!-- 카테고리 navbar -->
-    <nav class="navbar navbar-expand navbar-dark container px-4 px-lg-2">
-        <div class="navbar-nav text-white ">
-            <ul class="navbar-nav">
-                <li class="nav-item active">
-                    <a class="nav-link" href="/artwork/">캐릭터 일러스트</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/artwork/">일러스트</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/artwork/">디자인</i></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/artwork/">영상/음향</i></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/artwork/">웹툰/만화</i></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/artwork/">글</i></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/artwork/">기타</i></a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-</header>
+<!--navbar-->
+{% include 'artwork/navbar.html' %}
 
 <!-- Section-->
 <div class="py-5" id="main-area">

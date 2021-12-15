@@ -1,0 +1,18 @@
+section {
+    background-color: rgba(255, 255, 255);
+    margin-top: 3em;
+}
+
+.card {
+    background-color: rgba(255, 255, 255, 0.6);
+}
+
+.title-image {
+    background: url('/static/single_pages/images/title_image2.png') center;
+    margin : 1.5em;
+    height : 800px;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}

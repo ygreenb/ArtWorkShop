@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ko">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <link rel="stylesheet" href="{% static 'artwork/bootstrap/bootstrap.min.css' %}" type="text/css" media="screen">
+    <link rel="stylesheet" href="{% static 'single_pages/css/home.css' %}" type="text/css" media="screen">
+    <script src="https://kit.fontawesome.com/6c6fea15a8.js" crossorigin="anonymous"></script>
+    <title>ArtWork</title>
+</head>
+<body>
+
+<!--navbar-->
+{% include 'artwork/navbar.html' %}
+<!-- Section-->
+<section>
+    <div class="py-5 title-image bg-dark auto mt-4">
+        <div class="py-4 px-4 px-lg-2 mt-4">
+            <div class="text-center text-white py-4 mt-4">
+                <h1 class="mt-5">ArtWork</h1>
+                <p> 일러스트, 디자인, 영상, 웹툰 등 다양한 외주와 커미션 의뢰를 만나보세요. </p>
+                <button type="button" class="btn btn-outline-light mt-4">Show ArtWork</button>
+            </div>
+        </div>
+    </div>
+    <!-- 최근 Work list 3개 출력 -->
+    <div class="container px-2 px-lg-2 mt-3">
+        <h3 class="text-center">Recent ArtWork</h3>
+        <hr size="10px">
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 justify-content-center">
+            {% for work in work_list %}
+            <div class="col my-3">
+                <div class="card border-light h-100">
+                    <!-- Work image-->
+                    <a class="" href="{{ work.get_absolute_url }}">
+                        <img class="card-img-top" src="https://dummyimage.com/1000x800/dee2e6/6c757d.jpg" alt="..."/>
+                    </a>
+                    <!-- Work details-->
+                    <div class="card-body p-1">
+                        <div class="pt-1">
+                            <!-- work title-->
+                            <div class="mb-1" style="color:gray;font-size:12px">카테고리</div>
+                            <a class="text-decoration-none text-dark" href="{{ work.get_absolute_url }}">
+                                <h5 class="fw-bolder">{{work.title}}</h5>
+                            </a>
+                            <div class="mb-1" style="font-size:12px">작가이름<span> 작가</span>
+                                <h5 style='float:right'>{{work.price}}</h5></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+</section>
+
+<!-- Footer-->
+{% include 'artwork/footer.html' %}
+
+
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js"
+        integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s"
+        crossorigin="anonymous"></script>
+
+</body>
+</html>

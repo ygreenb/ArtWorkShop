@@ -1,12 +1,48 @@
 {% extends 'artwork/base.html' %}
 {% block main-area %}
+<div class="bg-dark py-2">
+    <div class="container py-4 px-4 px-lg-2">
+        <div class="text-white py-4">
+            <h1 class="display-4 fw-bolder">ART LIST</h1>
+            <h6 class="lead fw-normal text-white-50 mb-0">커미션은 상업적인 용도로 사용할 수 없습니다.</h6>
+        </div>
+    </div>
+    <!-- 카테고리 navbar -->
+    <nav class="navbar navbar-expand navbar-dark container px-4 px-lg-2">
+        <div class="navbar-nav text-white ">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/artwork/">캐릭터 일러스트</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/artwork/">일러스트</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/artwork/">디자인</i></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/artwork/">영상/음향</i></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/artwork/">웹툰/만화</i></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/artwork/">글</i></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/artwork/">기타</i></a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
 <div class="container px-2 px-lg-2 mt-3">
     <h5>n개의 작품</h5>
     <hr size="10px">
     <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 justify-content-center">
         {% if work_list.exists %}
         {% for work in work_list %}
-        <!-- Book List-->
+        <!-- Work List-->
         <div class="col my-3">
             <div class="card border-light h-100">
                 <!-- Work image-->
