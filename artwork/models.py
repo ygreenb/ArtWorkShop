@@ -2,6 +2,16 @@ from django.db import models
 from django.contrib.auth.models import User
 
 # Create your models here.
+class Tag(models.Model):
+    name = models.CharField(max_length=50, unique=True)
+    slug = models.SlugField(max_length=200, unique=True, allow_unicode=True)
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return f'/artwork/tag/{self.slug}'
+
 class Category(models.Model):
     name = models.CharField(max_length=50, unique=True)
     # slug : post의 pk 대신에 사용하는 필드로 text를 통해서 url 만들어주고싶을 때 사용함.
@@ -25,9 +35,8 @@ class Work(models.Model):
     head_image = models.ImageField(upload_to='artwork/images/%Y/%M/%d/', blank=True)
 
     author = models.ForeignKey(User,on_delete=models.CASCADE) # 다대일관계
-
-    category = models.ForeignKey(Category, null=True, blank=True, on_delete=models.SET_NULL)
-    # tags
+    category = models.ForeignKey(Category, null=True, blank=True, on_delete=models.SET_NULL) # 다대일 관계
+    tags = models.ManyToManyField(Tag, blank=True) # 다대다관계
     commericial = models.CharField(max_length=100) # 상업/비상업
 
     def __str__(self):

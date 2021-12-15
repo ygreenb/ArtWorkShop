@@ -22,7 +22,11 @@
     </nav>
 </div>
 <div class="container px-2 px-lg-2 mt-4">
-    <h5> n개의 작품 {% if category %} - {{category}} {% endif %}
+    <h5>
+        {% if category %}{{category}} - {{category.work_set.count}}
+        {% elif tag %}#{{tag}} - {{tag.work_set.count}}
+        {% else %}{{work_list.count}}{% endif %}
+        개의 작품
     </h5>
     <hr size="10px">
     <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 ">
