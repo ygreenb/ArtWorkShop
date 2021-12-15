@@ -7,7 +7,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 # LoginRequiredMixin : 로그인한 방문자만 접근 가능하도록 하기
 class WorkCreate(LoginRequiredMixin, CreateView):
     model = Work
-    fields = ['title','description','price','head_image','author','category','tags','commericial']
+    fields = ['title','description','price','head_image','category','tags','commericial']
 
     # def test_func(self):
     #     return self. request.user.is_superuser or self.request.user.is_staff
@@ -29,7 +29,7 @@ class WorkCreate(LoginRequiredMixin, CreateView):
             #             tag.slug = slugify(t, allow_unicode=True) # 한글태그,슬러그 받을수잇도록..
             #             tag.save() #변경된 태그내용 저장
             #         self.object.tags.add(tag)
-            # return response
+            return response
         else :
             return redirect('/artwork/')
 
