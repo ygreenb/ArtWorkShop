@@ -61,7 +61,7 @@
     </div>
     <!-- Work content-->
     <section class="mb-5">
-        <p class="fs-5 mb-4">{{work.description}}</p>
+        <p class="fs-5 mb-4">{{work.get_description_markdown | safe }}</p>
         <!-- 태그 -->
         {% if work.tags.exists %}
         <i class="fas fa-tags"></i>

@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from markdownx.models import MarkdownxField
+from markdownx.utils import markdown
 
 # Create your models here.
 class Tag(models.Model):
@@ -28,7 +30,7 @@ class Category(models.Model):
 
 class Work(models.Model):
     title = models.CharField(max_length=100)
-    description = models.TextField()
+    description = MarkdownxField()
     price = models.CharField(max_length=100)
 
     # 이미지 파일 저장할 수 있는 imageField
@@ -44,3 +46,6 @@ class Work(models.Model):
 
     def get_absolute_url(self): # 상세 포스트주소
         return f'/artwork/{self.pk}'
+
+    def get_description_markdown(self):
+        return markdown(self.description) # 기존텍스트 html를 마크다운 형식으로 변경

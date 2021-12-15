@@ -1,8 +1,9 @@
 from django.contrib import admin
 from .models import Work, Category, Tag
+from markdownx.admin import MarkdownxModelAdmin
 
 # Register your models here.
-admin.site.register(Work)
+admin.site.register(Work, MarkdownxModelAdmin)
 
 class CategoryAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug':('name',)} # slug 값 넣어줌.

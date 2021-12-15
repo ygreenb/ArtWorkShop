@@ -22,7 +22,8 @@ from django.conf import settings
 urlpatterns = [
     path('artwork/', include('artwork.urls')),
     path('admin/', admin.site.urls),
-    path('',include('single_pages.urls'))
+    path('',include('single_pages.urls')),
+    path('markdownx/', include('markdownx.urls'))
 ]
 # 이미지 파일 위한 URL 지정
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)  # 서버IP/media/

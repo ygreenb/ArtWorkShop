@@ -1,22 +1,23 @@
 {% extends 'artwork/base.html' %}
+{% load crispy_forms_tags %}
 {% block head_title %}
-        ArtWork | Edit Work
+ArtWork | Edit Work
 {% endblock %}
 {% block main-area %}
 <div class="container px-5 px-lg-5 mt-4">
-    <h1>Edit Work
-    </h1>
-    <hr />
+    <h1>Edit Work</h1>
+    <hr/>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        <table>
-            {{form}}
-            <tr>
-                <th><label for="id_tags_str">Tags:</label></th>
-                <td><input type="text" name="tags_str" maxlength="30" required id="id_tags_str"></td>
-            </tr>
-        </table>
-<button type="submit" class="btn mt-2 btn-dark float-right">발행하기</button>
+        {{form | crispy}}
+        <div id="div_id_tags_str"> <!--태그를 사용자에 의해 직접 입력받도록 -->
+            <label for="id_tags_str">Tags:</label>
+            <input type="text" name="tags_str" required id="id_tags_str" value="{{ tags_str_default }}"
+                   class="textinput textInput form-control">
+        </div>
+        <br>
+    <button type="submit" class="btn mt-2 btn-dark float-right">발행하기</button>
     </form>
+        {{form.media}}
 </div>
 {% endblock %}
