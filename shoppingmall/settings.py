@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -120,6 +120,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# (미디어파일관리)업로드한 파일이 저장될 폴더 지정
+MEDIA_URL = '/media/' # 방문자가 입력하는 url주소 : IP주소/media
+MEDIA_ROOT = os.path.join(BASE_DIR, '_media') #실제로 이미지가 저장되어있는 폴더 : 프로젝트 BASE_DIR/_media -> _media(폴더) 주소에있는 이미지를 불러와라.
+
+CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

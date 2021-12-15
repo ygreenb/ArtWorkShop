@@ -1,0 +1,10 @@
+body { padding-top: 70px }
+.head-image {
+    background-image: url('https://source.unsplash.com/wfh8dDlNFOk/1000x800') center;
+    height : 800px;
+    width : 1000px;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}

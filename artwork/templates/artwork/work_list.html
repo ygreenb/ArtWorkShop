@@ -1,6 +1,7 @@
 {% extends 'artwork/base.html' %}
 {% block main-area %}
-<div class="bg-dark py-2">
+<!-- header -->
+<div class="bg-dark">
     <div class="container py-4 px-4 px-lg-2">
         <div class="text-white py-4">
             <h1 class="display-4 fw-bolder">ART LIST</h1>
@@ -36,7 +37,7 @@
         </div>
     </nav>
 </div>
-<div class="container px-2 px-lg-2 mt-3">
+<div class="container px-2 px-lg-2 mt-4">
     <h5>n개의 작품</h5>
     <hr size="10px">
     <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 justify-content-center">
@@ -47,7 +48,12 @@
             <div class="card border-light h-100">
                 <!-- Work image-->
                 <a class="" href="{{ work.get_absolute_url }}">
-                    <img class="card-img-top" src="https://dummyimage.com/1000x800/dee2e6/6c757d.jpg" alt="..." />
+                    {% if work.head_image %} <!-- 템플릿 태그 조건문. head_image 있을 때 -->
+                    <img class="card-img-top" src="{{ work.head_image.url }}" alt="{{work}}의 head image"/>
+                    {% else %} <!-- head_image 없을 때 random images 고정-->
+                    <img class="card-img-top" src="https://picsum.photos/seed/{{work.id}}/1000/800"
+                         alt="random image"/>
+                    {% endif %}
                 </a>
                 <!-- Work details-->
                 <div class="card-body p-1">
@@ -58,7 +64,7 @@
                             <h5 class="fw-bolder">{{work.title}}</h5>
                         </a>
                         <div class="mb-1" style="font-size:12px">작가이름<span> 작가</span>
-                        <h5 style='float:right'>{{work.price}}</h5></div>
+                            <h5 style='float:right'>{{work.price}}</h5></div>
                     </div>
                 </div>
             </div>
