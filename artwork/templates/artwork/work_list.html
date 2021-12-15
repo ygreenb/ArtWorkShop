@@ -1,4 +1,7 @@
 {% extends 'artwork/base.html' %}
+{% block head_title %}
+WorkList{% if category %} - {{category}}{% endif %}
+{% endblock %}
 {% block main-area %}
 <!-- header -->
 <div class="bg-dark">
