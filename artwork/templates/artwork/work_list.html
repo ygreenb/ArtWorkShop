@@ -25,12 +25,17 @@ WorkList{% if category %} - {{category}}{% endif %}
     </nav>
 </div>
 <div class="container px-2 px-lg-2 mt-4">
-    <h5>
-        {% if category %}{{category}} - {{category.work_set.count}}
-        {% elif tag %}#{{tag}} - {{tag.work_set.count}}
-        {% else %}{{work_list.count}}{% endif %}
-        개의 작품
+    <h5 style="display:inline;">
+        {% if category %}{{category}} - {{category.work_set.count}}{% elif tag %}#{{tag}} - {{tag.work_set.count}}{% else %}{{work_list.count}}{% endif %}개의 작품
     </h5>
+    <!-- 작성 권한이 있는 user에게만 새로운 포스트 만들 수 있도록 -->
+    {% if user.is_authenticated %}
+    {% if user.is_staff or user.is_superuser %}
+    <a class="btn btn-dark btn-small float-right" style="top:0;" href="/artwork/create_work">
+        <i class="fas fa-pen"></i> New Post
+    </a>
+    {% endif %}
+    {% endif %}
     <hr size="10px">
     <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 ">
         {% if work_list.exists %}
@@ -43,7 +48,7 @@ WorkList{% if category %} - {{category}}{% endif %}
                     {% if work.head_image %} <!-- 템플릿 태그 조건문. head_image 있을 때 -->
                     <img class="card-img-top" src="{{ work.head_image.url }}" alt="{{work}}의 head image"/>
                     {% else %} <!-- head_image 없을 때 random images 고정-->
-                    <img class="card-img-top" src="https://picsum.photos/seed/{{work.id}}/1000/800"
+                    <img class="card-img-top" src="https://picsum.photos/seed/{{work.id}}/800/1000"
                          alt="random image"/>
                     {% endif %}
                 </a>

@@ -1,0 +1,18 @@
+{% extends 'artwork/base.html' %}
+{% block head_title %}
+        ArtWork | Edit Work
+{% endblock %}
+{% block main-area %}
+<div class="container px-5 px-lg-5 mt-4">
+    <h1>Edit Work
+    </h1>
+    <hr />
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table>
+            {{form}}
+        </table>
+<button type="submit" class="btn mt-2 btn-dark float-right">발행하기</button>
+    </form>
+</div>
+{% endblock %}

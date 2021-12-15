@@ -1,20 +1,22 @@
 from django.shortcuts import render, redirect
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from .models import Work, Category, Tag
+from django.core.exceptions import PermissionDenied
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 # Create your views here.
 # LoginRequiredMixin : 로그인한 방문자만 접근 가능하도록 하기
-class WorkCreate(LoginRequiredMixin, CreateView):
+# UserPassesTestMixin : 특정 사용자만 접근 허용하기
+class WorkCreate(LoginRequiredMixin,UserPassesTestMixin, CreateView): # 템플릿 : 모델명_form
     model = Work
     fields = ['title','description','price','head_image','category','tags','commericial']
 
-    # def test_func(self):
-    #     return self. request.user.is_superuser or self.request.user.is_staff
+    def test_func(self):
+        return self. request.user.is_superuser or self.request.user.is_staff
 
     def form_valid(self, form): # form 처리해주는 함수
         current_user = self.request.user
-        if current_user.is_authenticated : # 조건중에 하나만 통과해도 ok..
+        if current_user.is_authenticated and (current_user.is_staff or current_user.is_superuser):  # 조건중에 하나만 통과해도 ok..
             form.instance.author = current_user
             response = super(WorkCreate,self).form_valid(form)
             # tags_str = self.request.POST.get('tags_str') # tags 이름을 가지고있는..태그 안에 있는 데이터가져옴
@@ -32,6 +34,20 @@ class WorkCreate(LoginRequiredMixin, CreateView):
             return response
         else :
             return redirect('/artwork/')
+
+class WorkUpdate(LoginRequiredMixin, UpdateView): # 템플릿 : 모델명_form
+    model = Work
+    fields = ['title','description','price','head_image','category','tags','commericial']
+
+    # 자동으로 생성되는 템플릿이름이 create 클래스랑 겹치므로 새롭게 만들어줌
+    template_name = 'artwork/work_update_form.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated and request.user == self.get_object().author :
+            return super(WorkUpdate, self). dispatch(request, *args, **kwargs)
+        else :
+            raise PermissionDenied
+
 
 class WorkList(ListView) : # 작품 목록 페이지
     model = Work
