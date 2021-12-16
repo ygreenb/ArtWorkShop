@@ -7,6 +7,7 @@ urlpatterns = [ # 서버IP/artwork/
     path('create_work/', views.WorkCreate.as_view()),
     path('tag/<str:slug>', views.tag_page),  # 서버IP/artwork/tag/slug
     path('category/<str:slug>', views.category_page), #서버IP/artwork/category/slug
-    path('', views.WorkList.as_view()),
+    path('<int:pk>/new_comment/', views.new_comment),
     path('<int:pk>/', views.WorkDetail.as_view()),
+    path('', views.WorkList.as_view()),
 ]

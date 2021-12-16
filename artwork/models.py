@@ -49,3 +49,21 @@ class Work(models.Model):
 
     def get_description_markdown(self):
         return markdown(self.description) # 기존텍스트 html를 마크다운 형식으로 변경
+
+class Comment(models.Model):
+    work = models.ForeignKey(Work, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE) # 한명의 유저가 여러개의 커멘트 입력
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.author}::{self.content}'
+
+    def get_absolute_url(self):
+        return f'{self.work.get_absolute_url()}#comment-{self.pk}'
+
+    def get_avatar_url(self):
+        if self.author.socialaccount_set.exists() :
+            return self.author.socialaccount_set.first().get_avatar_url()
+        else :
+            return 'https://doitdjango.com/avatar/id/403/06906de089c1792c/svg/{{self.author.email}}/'

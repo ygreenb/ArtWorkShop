@@ -4,6 +4,24 @@ from .models import Work, Category, Tag
 from django.core.exceptions import PermissionDenied
 from django.utils.text import slugify
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from .forms import CommentForm
+from django.shortcuts import get_object_or_404
+
+def new_comment(request, pk):
+    if request.user.is_authenticated: # 로그인한 사용자
+        work = get_object_or_404(Work, pk=pk) # 장고제공함수. 해당하는 pk값 없으면 페이지없다고 알려주는..
+        if request.method == 'POST' :
+            comment_form = CommentForm(request.POST)
+            if comment_form.is_valid() : # 올바르게 작성된 댓글 폼인지 확인
+                comment = comment_form.save(commit=False)
+                comment.work = work
+                comment.author = request.user
+                comment.save()
+                return redirect(comment.get_absolute_url())
+        else :
+            return redirect(work.get_absolute_url())
+    else:
+        raise PermissionDenied
 
 # Create your views here.
 # LoginRequiredMixin : 로그인한 방문자만 접근 가능하도록 하기
@@ -88,6 +106,12 @@ class WorkList(ListView) : # 작품 목록 페이지
 class WorkDetail(DetailView):  # 작품 상세 페이지
     model = Work
 # work_detail.html
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(WorkDetail,self).get_context_data()
+        context['categories'] = Category.objects.all()
+        context['no_category_work_count'] = Work.objects.filter(category=None).count()
+        context['comment_form'] = CommentForm
+        return context
 
 def category_page(request, slug): # 카테고리 페이지
     if slug == 'no_category' :
