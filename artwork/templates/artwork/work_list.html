@@ -26,9 +26,10 @@ WorkList{% if category %} - {{category}}{% endif %}
 </div>
 <div class="container px-2 px-lg-2 mt-4">
     <h5 style="display:inline;">
-        {% if search_info %}{{search_info}}{% endif %}
-        {% if category %}{{category}} - {{category.work_set.count}}개의 작품{% endif %}
-        {% if tag %}#{{tag}} - {{tag.work_set.count}}개의 작품{% endif %}
+        {% if search_info %}{{search_info}}
+        {% elif category %}{{category}} - {{category.work_set.count}}개의 작품
+        {% elif tag %}#{{tag}} - {{tag.work_set.count}}개의 작품
+        {% else %} 작품 전체 {% endif %}
     </h5>
     <!-- 작성 권한이 있는 user에게만 새로운 포스트 만들 수 있도록 -->
     {% if user.is_authenticated %}
@@ -36,6 +37,7 @@ WorkList{% if category %} - {{category}}{% endif %}
     <a class="btn btn-dark btn-small float-right" style="top:0;" href="/artwork/create_work">
         <i class="fas fa-pen"></i> New Post
     </a>
+
     {% endif %}
     {% endif %}
     <hr size="10px">
