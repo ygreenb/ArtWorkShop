@@ -6,6 +6,7 @@ from django.utils.text import slugify
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .forms import CommentForm
 from django.shortcuts import get_object_or_404
+from django.db.models import Q
 
 def new_comment(request, pk):
     if request.user.is_authenticated: # 로그인한 사용자
@@ -96,6 +97,7 @@ class WorkUpdate(LoginRequiredMixin, UpdateView): # 템플릿 : 모델명_form
 class WorkList(ListView) : # 작품 목록 페이지
     model = Work
     ordering = '-pk'
+    paginate_by = 6
 # work_list.html
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(WorkList,self).get_context_data()
@@ -111,6 +113,23 @@ class WorkDetail(DetailView):  # 작품 상세 페이지
         context['categories'] = Category.objects.all()
         context['no_category_work_count'] = Work.objects.filter(category=None).count()
         context['comment_form'] = CommentForm
+        return context
+
+class WorkSearch(WorkList) :
+    paginate_by = None
+
+    def get_queryset(self):
+        q = self.kwargs['q']
+        work_list = Work.objects.filter(
+            Q(title__contains=q) | Q(tags__name__contains=q) # 두개의 쿼리 통과하면... 전달됨
+        ).distinct()
+        return work_list
+
+    def get_context_data(self, **kwargs):
+        context = super(WorkSearch,self).get_context_data()
+        q = self.kwargs['q']
+        context['search_info'] = f'{q} - {self.get_queryset().count()}개의 작품'
+
         return context
 
 def category_page(request, slug): # 카테고리 페이지

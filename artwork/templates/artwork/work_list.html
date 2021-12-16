@@ -26,7 +26,9 @@ WorkList{% if category %} - {{category}}{% endif %}
 </div>
 <div class="container px-2 px-lg-2 mt-4">
     <h5 style="display:inline;">
-        {% if category %}{{category}} - {{category.work_set.count}}{% elif tag %}#{{tag}} - {{tag.work_set.count}}{% else %}{{work_list.count}}{% endif %}개의 작품
+        {% if search_info %}{{search_info}}{% endif %}
+        {% if category %}{{category}} - {{category.work_set.count}}개의 작품{% endif %}
+        {% if tag %}#{{tag}} - {{tag.work_set.count}}개의 작품{% endif %}
     </h5>
     <!-- 작성 권한이 있는 user에게만 새로운 포스트 만들 수 있도록 -->
     {% if user.is_authenticated %}
@@ -37,10 +39,10 @@ WorkList{% if category %} - {{category}}{% endif %}
     {% endif %}
     {% endif %}
     <hr size="10px">
+    <!-- Work List-->
     <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 ">
         {% if work_list.exists %}
         {% for work in work_list %}
-        <!-- Work List-->
         <div class="col my-3">
             <div class="card border-light h-100" id="work-{{work.pk}}">
                 <!-- Work image-->
@@ -71,5 +73,28 @@ WorkList{% if category %} - {{category}}{% endif %}
         <h2>아직 게시물이 없습니다.</h2>
         {% endif %}
     </div>
+    <!-- Pagination-->
+    {% if is_paginated %}
+    <ul class="pagination justify-content-center my-4">
+        {% if page_obj.has_previous %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{page_obj.previous_page_number}}" tabindex="-1" aria-disabled="true">&larr; Newer</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">&larr; Newer</a>
+        </li>
+        {% endif %}
+        {% if page_obj.has_next %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{page_obj.next_page_number}}">Older &rarr;</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+            <a class="page-link" href="#!">Older &rarr;</a>
+        </li>
+        {% endif %}
+    </ul>
+    {% endif %}
 </div>
 {% endblock %}

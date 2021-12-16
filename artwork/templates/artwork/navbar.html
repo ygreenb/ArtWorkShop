@@ -21,7 +21,12 @@
                     <a class="nav-link" href="/about_us/">About Us</i></a>
                 </li>
             </ul>
-            <ul class="navbar-nav ml-auto">
+            <!-- search form -->
+            <div class="form-inline ml-auto">
+                <input class="form-control mr-sm-1" type="text" id="search-input" placeholder="Search" aria-label="Search" aria-describedby="button-search">
+                <button class="btn btn-dark my-2 my-sm-0" type="button" onclick="searchWork()"><i class="fas fa-search"></i></button>
+            </div>
+            <ul class="navbar-nav ">
                 {% if user.is_authenticated %}
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
@@ -31,7 +36,7 @@
                              src="{{user.socialaccount_set.all.0.get_avatar_url}}">
                         {% else %}
                         <img class="rounded-circle" width="25px"
-                             src ="https://doitdjango.com/avatar/id/403/06906de089c1792c/svg/{{user.email}}/">
+                             src="https://doitdjango.com/avatar/id/403/06906de089c1792c/svg/{{user.email}}/">
                         {% endif %}
                         {{user.username}}
                     </a>
@@ -69,10 +74,12 @@
                         <a role="button" class="btn btn-outline-dark btn-block btn-sm"
                            href="{% provider_login_url 'google' %}">
                             <i class="fab fa-google"></i>&nbsp;&nbsp;Log in with Google</a>
-                        <a role="button" class="btn btn-outline-dark btn-block btn-sm" href="/accounts/login/"><i class="far fa-envelope"></i>&nbsp;&nbsp;Log in with E-mail</a>
+                        <a role="button" class="btn btn-outline-dark btn-block btn-sm" href="/accounts/login/"><i
+                                class="far fa-envelope"></i>&nbsp;&nbsp;Log in with E-mail</a>
                     </div>
                     <div class="col-md-6">
-                        <a role="button" class="btn btn-outline-dark btn-block btn-sm" href="/accounts/signup/"><i class="far fa-envelope"></i>&nbsp;&nbsp;Sign Up with E-mail</a>
+                        <a role="button" class="btn btn-outline-dark btn-block btn-sm" href="/accounts/signup/"><i
+                                class="far fa-envelope"></i>&nbsp;&nbsp;Sign Up with E-mail</a>
                     </div>
                 </div>
             </div>
@@ -84,11 +91,18 @@
 </div>
 
 <script>
-
-    document.getElementByClassName('nav-link').addEventListener("click",
-            function navClick(){
-                     nav.style.color="white";
-            }
-    );
-
+    function searchWork(){
+        let searchValue = document.getElementById('search-input').value.trim();
+        if(searchValue.length > 1){
+            location.href="/artwork/search/" + searchValue + "/";
+        }
+        else {
+            alert('검색어(' + searchValue + ')가 너무 짧습니다.');
+        }
+    };
+    document.getElementById('search-input').addEventListener('keyup',
+            function(event){
+                if(event.key=='Enter'){ searchWork();}
+                }
+     )
 </script>
