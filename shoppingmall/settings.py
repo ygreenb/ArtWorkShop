@@ -39,6 +39,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'crispy_forms',
     'markdownx',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
     'artwork',
     'single_pages'
 ]
@@ -103,6 +108,17 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTHENTICATTION_BACKENDS=(
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend'
+)
+
+SITE_ID = 1 # 사이트 id
+
+ACCOUNT_EMAIL_REQUIRED = True # 로그인 시 반드시 이메일 받겠따.
+ACCOUNT_EMAIL_VERIFICATION = 'none' # 이메일을 받되 이메일이 유효한지는 확인하지 않음
+
+LOGIN_REDIRECT_URL = '/artwork/' # 로그인 성공적으로 이뤄진 후 이동하는 url주소
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/

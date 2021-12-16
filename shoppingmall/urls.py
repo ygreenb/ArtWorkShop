@@ -23,6 +23,7 @@ urlpatterns = [
     path('artwork/', include('artwork.urls')),
     path('admin/', admin.site.urls),
     path('',include('single_pages.urls')),
+    path('accounts/', include('allauth.urls')),
     path('markdownx/', include('markdownx.urls'))
 ]
 # 이미지 파일 위한 URL 지정

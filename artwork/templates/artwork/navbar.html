@@ -1,3 +1,4 @@
+{% load socialaccount %}
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top"> <!--container 좌우여백줌-->
     <div class="container-fluid mx-3">
         <a class="navbar-brand " href="/">ArtWork</a>
@@ -34,16 +35,16 @@
                         {% endif %}
                         {{user.username}}
                     </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a role="button" class="btn btn-primary" href="/accounts/logout/">
-                            Log Out
+                    <div class="dropdown-menu p-1" aria-labelledby="navbarDropdownMenuLink">
+                        <a role="button" class="btn btn-outline-dark center" href="/accounts/logout/">
+                            LogOut
                         </a>
                     </div>
                 </li>
                 {% else %}
                 <li class="nav-item">
                     <!-- Button trigger modal -->
-                    <a role="button" class="btn btn-primary" data-toggle="modal" data-target="#loginModal">
+                    <a role="button" class="btn btn-dark" data-toggle="modal" data-target="#loginModal">
                         Log In
                     </a>
                 </li>
@@ -66,7 +67,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <a role="button" class="btn btn-outline-dark btn-block btn-sm"
-                           href="#">
+                           href="{% provider_login_url 'google' %}">
                             <i class="fab fa-google"></i>&nbsp;&nbsp;Log in with Google</a>
                         <a role="button" class="btn btn-outline-dark btn-block btn-sm" href="/accounts/login/"><i class="far fa-envelope"></i>&nbsp;&nbsp;Log in with E-mail</a>
                     </div>
