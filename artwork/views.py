@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
-from .models import Work, Category, Tag
+from .models import Work, Category, Tag, Creator
 from django.core.exceptions import PermissionDenied
 from django.utils.text import slugify
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
@@ -29,7 +29,7 @@ def new_comment(request, pk):
 # UserPassesTestMixin : 특정 사용자만 접근 허용하기
 class WorkCreate(LoginRequiredMixin,UserPassesTestMixin, CreateView): # 템플릿 : 모델명_form
     model = Work
-    fields = ['title','description','price','head_image','category','commericial']
+    fields = ['title','description','price','head_image','creator','category','commericial']
 
     def test_func(self):
         return self. request.user.is_superuser or self.request.user.is_staff
@@ -57,7 +57,7 @@ class WorkCreate(LoginRequiredMixin,UserPassesTestMixin, CreateView): # 템플�
 
 class WorkUpdate(LoginRequiredMixin, UpdateView): # 템플릿 : 모델명_form
     model = Work
-    fields = ['title','description','price','head_image','category','commericial']
+    fields = ['title','description','price','head_image','creator','category','commericial']
 
     # 자동으로 생성되는 템플릿이름이 create 클래스랑 겹치므로 새롭게 만들어줌
     template_name = 'artwork/work_update_form.html'
@@ -101,6 +101,7 @@ class WorkList(ListView) : # 작품 목록 페이지
 # work_list.html
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(WorkList,self).get_context_data()
+        context['creators'] = Creator.objects.all()
         context['categories'] = Category.objects.all()
         context['no_category_work_count'] = Work.objects.filter(category=None).count()
         return context
@@ -110,10 +111,20 @@ class WorkDetail(DetailView):  # 작품 상세 페이지
 # work_detail.html
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(WorkDetail,self).get_context_data()
+        context['creators'] = Creator.objects.all()
         context['categories'] = Category.objects.all()
         context['no_category_work_count'] = Work.objects.filter(category=None).count()
         context['comment_form'] = CommentForm
         return context
+
+# class CreatorDetail(DetailView) : # 작가 페이지(mypage)
+#     model = Creator
+#     ordering = '-pk'
+#     template_name = 'my_page.html'
+#
+#     def get_context_data(self, *, object_list=None, **kwargs):
+#         context = super(CreatorDetail,self).get_context_data()
+#         return context
 
 class WorkSearch(WorkList) :
     paginate_by = None
@@ -131,6 +142,23 @@ class WorkSearch(WorkList) :
         context['search_info'] = f'{q} - {self.get_queryset().count()}개의 작품'
 
         return context
+
+# def Creator_page(request, slug):
+#     if slug == 'no_creator' :
+#         creator = '미등록'
+#         work_list = Work.objects.filter(creator=None)
+#     else :
+#         creator = Creator.objects.get(slug=slug)
+#         work_list = Work.objects.filter(creator=creator)
+#
+#     return render(request, 'artwork/work_list.html',
+#                   {
+#                       'work_list' : work_list,
+#                       'creators' : Creator.objects.all(),
+#                       'no_creator_work_count' : Work.objects.filter(creator=None).count(),
+#                       'creator' : creator
+#                   }
+#                   )
 
 def category_page(request, slug): # 카테고리 페이지
     if slug == 'no_category' :

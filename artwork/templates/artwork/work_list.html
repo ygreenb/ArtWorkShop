@@ -48,7 +48,7 @@ WorkList{% if category %} - {{category}}{% endif %}
         <div class="col my-3">
             <div class="card border-light h-100" id="work-{{work.pk}}">
                 <!-- Work image-->
-                <a class="" href="{{ work.get_absolute_url }}">
+                <a href="{{ work.get_absolute_url }}">
                     {% if work.head_image %} <!-- 템플릿 태그 조건문. head_image 있을 때 -->
                     <img class="card-img-top" src="{{ work.head_image.url }}" alt="{{work}}의 head image"/>
                     {% else %} <!-- head_image 없을 때 random images 고정-->
@@ -64,8 +64,8 @@ WorkList{% if category %} - {{category}}{% endif %}
                         <a class="text-decoration-none text-dark" href="{{ work.get_absolute_url }}">
                             <h5 class="fw-bolder">{{work.title}}</h5>
                         </a>
-                        <div class="mb-1" style="font-size:15px">{{work.author}}<span> 작가</span>
-                            <h5 style='float:right'>{{work.price}}</h5></div>
+                        <div class="mb-1" style="font-size:15px">{{work.creator}}<span> 작가</span>
+                            <h5 style='float:right'>{{work.price}}원</h5></div>
                     </div>
                 </div>
             </div>

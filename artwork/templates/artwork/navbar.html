@@ -7,16 +7,24 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav .justify-content-end ml-auto">
+            <ul class="navbar-nav .justify-content-center ml-auto">
                 <li class="nav-item">
                     <a class="nav-link" href="/">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/artwork/">Work</a>
                 </li>
+                {% if user.is_authenticated %}
+                <!-- 로그인 했을 때만 mypage 활성화 -->
                 <li class="nav-item">
                     <a class="nav-link" href="/mypage/">My page</i></a>
                 </li>
+                {% else %}
+                <!-- 로그인 안했을 시 로그인 하라는 모달을 띄운다 -->
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-toggle="modal" data-target="#loginModal">My page</i></a>
+                </li>
+                {% endif %}
                 <li class="nav-item">
                     <a class="nav-link" href="/about_us/">About Us</i></a>
                 </li>
