@@ -1,24 +1,80 @@
 {% extends 'artwork/base.html' %}
 {% block head_title %}
-    ArtWork-About Us
+ArtWork-About Us
 {% endblock %}
 {% block main-area %}
-<h1>회사소개페이지</h1>
-<div class="container">
-    <!-- Content section-->
+<!-- Content section-->
+<div class="">
+    <!-- 서비스 소개 -->
+    <section class="py-3">
+        <div class="container my-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <h5>작품 계약 플랫폼</h5>
+                    <h1 class="display-6 my-3">ARTWORK</h1>
+                    <p class="lead mt-2">
+                        아트워크는 일러스트, 디자인, 글 등 작품 위주의 다양한 카테고리의 전문성을 상품화하여 거래할 수 있는 마켓입니다.
+                    <p class="mb-1">
+                        다양한 작가들의 작품을 하나의 플랫폼에서 비교해보고 바로 구매까지</p>
+                    <p>Artwork is a market where you can commercialize and trade expertise in various
+                        categories centered on artworks, such as illustration, design, and writing. Compare the works of
+                        various artists on one platform and find the one that suits you best!</p>
+                    <a role="button" class="btn btn-outline-dark btn-lg mt-4" href="http://127.0.0.1:8000/artwork/">서비스
+                        둘러보기</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Image element - set the background image for the header in the line below-->
+    <div class="py-3 bg-image-full" style="background-image: url('https://source.unsplash.com/4ulffa6qoKA/1200x800')">
+        <!-- Put anything you want here! The spacer below with inline CSS is just for demo purposes!-->
+        <div style="height: 23rem"></div>
+    </div>
+    <!-- 서비스 소개 -->
+    <section class="py-3">
+        <div class="container my-5">
+            <div class="row justify-content-center">
+                <figure class="col-lg-8 text-right">
+                    <h5>작품 통계정보</h5>
+                    <h1 class="display-6 my-3">WORK STATISTICAL</h1>
+                    <p class="lead mt-2">
+                        아트워크는 다양한 카테고리에서의 작가들과 그들의 작품을 만나볼 수 있습니다.
+                    <p class="mb-1">
+                        다양한 작가들의 작품을 둘러보고 내게 가장 맞는 작가를 만나보세요!</p>
+                </figure>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact us section -->
     <section class="py-5">
         <div class="container my-5">
             <div class="row justify-content-center">
                 <div class="col-lg-6">
-                    <h2>Full Width Backgrounds</h2>
-                    <p class="lead">A single, lightweight helper class allows you to add engaging, full width background
-                        images to sections of your page.</p>
-                    <p class="mb-0">The universe is almost 14 billion years old, and, wow! Life had no problem starting
-                        here
-                        on Earth! I think it would be inexcusably egocentric of us to suggest that we're alone in the
-                        universe.</p>
+                    <h2 class="text-center my-4">Contact Us</h2>
+                    <hr class="my-4" style="border:0;width:50px;height:2px;background: #000;">
                 </div>
             </div>
+            <div class="container row p-5 ml-2">
+                <div class="col-lg-6"
+                     style="background-image: url('https://source.unsplash.com/4ulffa6qoKA/1200x800')">
+                    <div style="height: 18rem"></div>
+                </div>
+                <div class="col-lg-6 p-5">
+                    <h5>(주)아트워크</h5>
+                    <p class="mb-1">서울특별시 영등포구 문래로 8길 5</p>
+                    <p class="mb-0">Tel : 02-999-9999</p>
+                    <p>Email : artwork@artwork.kr</p>
+                </div>
+            </div>
+        </div>
+        <div class="container text-center pt-5">
+
+            <h2>Welcome to ArtWork!</h2>
+            <p class="lead">이제 아트워크에서 당신만의 작품을 만나보세요!</p>
+            <a role="button" class="btn btn-outline-dark btn-lg mt-4" href="http://127.0.0.1:8000/artwork/">서비스
+                둘러보기</a>
+            <p class="pt-5">ARTWORK</p>
         </div>
     </section>
 </div>
