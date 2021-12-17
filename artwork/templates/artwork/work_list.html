@@ -4,9 +4,9 @@ WorkList{% if category %} - {{category}}{% endif %}
 {% endblock %}
 {% block main-area %}
 <!-- header -->
-<div class="bg-dark">
+<div class="bg-dark" >
     <div class="container py-4 px-4 px-lg-2">
-        <div class="text-white py-4">
+        <div class="text-white py-4" >
             <h1 class="display-4 fw-bolder">ART LIST</h1>
             <h6 class="lead fw-normal text-white-50 mb-0">커미션은 상업적인 용도로 사용할 수 없습니다.</h6>
         </div>
@@ -34,8 +34,8 @@ WorkList{% if category %} - {{category}}{% endif %}
     <!-- 작성 권한이 있는 user에게만 새로운 포스트 만들 수 있도록 -->
     {% if user.is_authenticated %}
     {% if user.is_staff or user.is_superuser %}
-    <a class="btn btn-dark btn-small float-right" style="top:0;" href="/artwork/create_work">
-        <i class="fas fa-pen"></i> New Post
+    <a class="btn btn-small float-right btn-dark" style="color:pink" href="/artwork/create_work">
+        <i class="fas fa-plus"></i> 새 작품등록
     </a>
 
     {% endif %}
@@ -80,20 +80,20 @@ WorkList{% if category %} - {{category}}{% endif %}
     <ul class="pagination justify-content-center my-4">
         {% if page_obj.has_previous %}
         <li class="page-item">
-            <a class="page-link" href="?page={{page_obj.previous_page_number}}" tabindex="-1" aria-disabled="true">&larr; Newer</a>
+            <a class="page-link" href="?page={{page_obj.previous_page_number}}" style="color:#AC58FA" tabindex="-1" aria-disabled="true">&larr; Previous</a>
         </li>
         {% else %}
         <li class="page-item disabled">
-            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">&larr; Newer</a>
+            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">&larr; Previous</a>
         </li>
         {% endif %}
         {% if page_obj.has_next %}
         <li class="page-item">
-            <a class="page-link" href="?page={{page_obj.next_page_number}}">Older &rarr;</a>
+            <a class="page-link" href="?page={{page_obj.next_page_number}}" style="color:#AC58FA">Next &rarr;</a>
         </li>
         {% else %}
         <li class="page-item disabled">
-            <a class="page-link" href="#!">Older &rarr;</a>
+            <a class="page-link" href="#!">Next &rarr;</a>
         </li>
         {% endif %}
     </ul>

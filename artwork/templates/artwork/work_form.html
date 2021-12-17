@@ -4,7 +4,7 @@
 ArtWork | Create Work
 {% endblock %}
 {% block main-area %}
-<div class="container px-5 px-lg-5 mt-4">
+<div class="container px-5 px-lg-5 my-4">
     <h1>Create New Work</h1>
     <hr/>
     <form method="post" enctype="multipart/form-data">
@@ -16,7 +16,7 @@ ArtWork | Create Work
                    class="textinput textInput form-control">
         </div>
         <br>
-        <button type="submit" class="btn btn-dark float-right">Submit</button>
+        <button type="submit" class="btn btn-outline-dark float-right" style="background-color:pink;border-color:pink">Submit</button>
     </form>
         {{form.media}}
 </div>

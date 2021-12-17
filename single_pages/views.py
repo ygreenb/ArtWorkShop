@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from artwork.models import Work, Creator, Comment
+from artwork.models import Work, Creator, Comment, Category
 
 # Create your views here.
 
@@ -10,7 +10,10 @@ def langing(request):
 
 
 def about_us(request):
-    return render(request, 'single_pages/about_us.html')
+    return render(request, 'single_pages/about_us.html',
+                  {
+                      'categories' : Category.objects.all()
+                  })
 
 
 def my_page(request):
@@ -21,3 +24,19 @@ def my_page(request):
                       'creator_list': creator_list,
                       'comment_list': comment_list
                   })
+
+def category_page(request, slug): # 카테고리 페이지
+    if slug == 'no_category' :
+        category = '미분류'
+        work_list = Work.objects.filter(category=None)
+    else :
+        category = Category.objects.get(slug=slug)
+        work_list = Work.objects.filter(category=category)
+    return render(request, 'artwork/about_us.html',
+                  {
+                      'work_list' : work_list,
+                      'categories' : Category.objects.all(),
+                      'no_category_work_count' : Work.objects.filter(category=None).count(),
+                      'category' : category
+                  }
+                  )

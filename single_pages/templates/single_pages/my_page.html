@@ -27,7 +27,7 @@
         <img class="img-fluid rounded-circle mb-4" width="150px"
              src="https://doitdjango.com/avatar/id/403/06906de089c1792c/svg/{{user.email}}/">
         {% endif %}
-        <h1 class="text-white fs-3 fw-bolder">{{user}}</h1>
+        <h1 class="text-white fs-3 fw-bolder" style="color:pink">{{user}}</h1>
         <p class="text-white-50 mb-0">{{user.email}}</p>
     </div>
 </header>
@@ -64,14 +64,14 @@
                                         <p class="text-muted">{{work.author}}</p>
                                         <p class="text-muted">{{c.intro}}</p>
                                         <hr size="10px">
-                                        <h5>Contact</h5>
+                                        <h4>Contact</h4>
                                         <p class="text-muted mb-0">이메일 : {{c.email}}</p>
                                         <p class="text-muted mb-0">{{c.contact}}</p>
                                         <p class="text-muted mb-0">연락가능 시간 : 0시~0시</p>
                                     </div>
                                 </div>
-                                <button type="button" class="btn btn-outline-dark mx-3">프로필 수정하기</button>
-                                <button class="btn btn-dark flex-shrink-0 mx-3 my-3" type="button">프로필 삭제하기</button>
+                                <button type="button" class="btn btn-outline-dark mx-3" style="background-color:pink;border-color:pink">프로필 편집하기</button>
+                                <button class="btn btn-dark flex-shrink-0 mx-3 my-3" style="color:pink" type="button">프로필 삭제하기</button>
                             </div>
                         </div>
                         {% endif %}
@@ -88,7 +88,7 @@
         <div class="row">
             <div class="col-lg-6">
                 <section class="mb-5">
-                    <h3>내가 남긴 문의</h3>
+                    <h3>내가 남긴 문의 및 답변</h3>
                     <hr size="10px">
                     <div class="card">
                         <div class="card-body">
