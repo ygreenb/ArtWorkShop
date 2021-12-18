@@ -15,14 +15,20 @@ def about_us(request):
                       'categories' : Category.objects.all()
                   })
 
-
 def my_page(request):
     creator_list = Creator.objects.all()
     comment_list = Comment.objects.all()
     return render(request, 'single_pages/my_page.html',
                   {
                       'creator_list': creator_list,
-                      'comment_list': comment_list
+                      'comment_list': comment_list,
+                  })
+
+def my_work(request):
+    my_works = Work.objects.order_by('-pk')
+    return render(request, 'single_pages/my_work.html',
+                  {
+                      'my_works' : my_works
                   })
 
 def category_page(request, slug): # 카테고리 페이지

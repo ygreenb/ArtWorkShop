@@ -117,15 +117,6 @@ class WorkDetail(DetailView):  # 작품 상세 페이지
         context['comment_form'] = CommentForm
         return context
 
-# class CreatorDetail(DetailView) : # 작가 페이지(mypage)
-#     model = Creator
-#     ordering = '-pk'
-#     template_name = 'my_page.html'
-#
-#     def get_context_data(self, *, object_list=None, **kwargs):
-#         context = super(CreatorDetail,self).get_context_data()
-#         return context
-
 class WorkSearch(WorkList) :
     paginate_by = None
 
@@ -143,22 +134,6 @@ class WorkSearch(WorkList) :
 
         return context
 
-# def Creator_page(request, slug):
-#     if slug == 'no_creator' :
-#         creator = '미등록'
-#         work_list = Work.objects.filter(creator=None)
-#     else :
-#         creator = Creator.objects.get(slug=slug)
-#         work_list = Work.objects.filter(creator=creator)
-#
-#     return render(request, 'artwork/work_list.html',
-#                   {
-#                       'work_list' : work_list,
-#                       'creators' : Creator.objects.all(),
-#                       'no_creator_work_count' : Work.objects.filter(creator=None).count(),
-#                       'creator' : creator
-#                   }
-#                   )
 
 def category_page(request, slug): # 카테고리 페이지
     if slug == 'no_category' :

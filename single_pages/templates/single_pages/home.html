@@ -38,7 +38,7 @@
             <div class="col my-3">
                 <div class="card border-light h-100" id="work-{{work.pk}}">
                     <!-- author -->
-                    <h4 class="text-center">{{work.author}}<span> 작가</span></h4>
+                    <h4 class="text-center">{{work.creator}}<span> 작가</span></h4>
                     <!-- Work image-->
                     <a class="" href="{{ work.get_absolute_url }}">
                         {% if work.head_image %} <!-- 템플릿 태그 조건문. head_image 있을 때 -->
