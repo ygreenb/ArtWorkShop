@@ -29,7 +29,7 @@ def new_comment(request, pk):
 # UserPassesTestMixin : 특정 사용자만 접근 허용하기
 class WorkCreate(LoginRequiredMixin,UserPassesTestMixin, CreateView): # 템플릿 : 모델명_form
     model = Work
-    fields = ['title','description','price','head_image','creator','category','commericial']
+    fields = ['title','description','price','head_image','content_image','creator','category','commericial']
 
     def test_func(self):
         return self. request.user.is_superuser or self.request.user.is_staff
@@ -57,7 +57,7 @@ class WorkCreate(LoginRequiredMixin,UserPassesTestMixin, CreateView): # 템플�
 
 class WorkUpdate(LoginRequiredMixin, UpdateView): # 템플릿 : 모델명_form
     model = Work
-    fields = ['title','description','price','head_image','creator','category','commericial']
+    fields = ['title','description','price','head_image','content_image','creator','category','commericial']
 
     # 자동으로 생성되는 템플릿이름이 create 클래스랑 겹치므로 새롭게 만들어줌
     template_name = 'artwork/work_update_form.html'
@@ -97,7 +97,7 @@ class WorkUpdate(LoginRequiredMixin, UpdateView): # 템플릿 : 모델명_form
 class WorkList(ListView) : # 작품 목록 페이지
     model = Work
     ordering = '-pk'
-    paginate_by = 6
+    paginate_by = 12
 # work_list.html
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(WorkList,self).get_context_data()
@@ -119,6 +119,7 @@ class WorkDetail(DetailView):  # 작품 상세 페이지
 
 class WorkSearch(WorkList) :
     paginate_by = None
+    ordering = '-pk'
 
     def get_queryset(self):
         q = self.kwargs['q']
@@ -138,10 +139,10 @@ class WorkSearch(WorkList) :
 def category_page(request, slug): # 카테고리 페이지
     if slug == 'no_category' :
         category = '미분류'
-        work_list = Work.objects.filter(category=None)
+        work_list = Work.objects.filter(category=None).order_by('-pk')
     else :
         category = Category.objects.get(slug=slug)
-        work_list = Work.objects.filter(category=category)
+        work_list = Work.objects.filter(category=category).order_by('-pk')
     return render(request, 'artwork/work_list.html',
                   {
                       'work_list' : work_list,
@@ -153,7 +154,7 @@ def category_page(request, slug): # 카테고리 페이지
 
 def tag_page(request, slug):
     tag = Tag.objects.get(slug=slug)
-    work_list = tag.work_set.all() #Work.objects.filter(tags=tag)
+    work_list = tag.work_set.all().order_by('-pk') #Work.objects.filter(tags=tag)
 
     return render(request, 'artwork/work_list.html',
                   {

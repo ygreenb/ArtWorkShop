@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <meta name="description" content=""/>
     <meta name="author" content=""/>
-    <title>ArtWork-MyPage</title>
+    <title>ARTWORK-{% if creator %}{{creator}}{% else %}{{user}} {% endif %}
+    </title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico"/>
     <!-- Core theme CSS (includes Bootstrap)-->
@@ -20,37 +21,57 @@
 
 <!-- Header - set the background image for the header in the line below-->
 <header class="py-5 bg-image-full" style="background-image: url('https://source.unsplash.com/wfh8dDlNFOk/1600x900')">
-    <div class="text-center my-5">
-        {% if user.socialaccount_set.all.0.get_avatar_url %}
+    <div class="container text-center text-white my-2">
+        {% if creator %}
+        {% for c in creator_list %}
+        {% if creator == c %}
+        <div class="px-5 mx-5">
+        <div class="row">
+            <div class="col-lg-7">
+                          <img class="img-fluid rounded-circle mb-4" width="150px" src="{{c.profile_image.url}}"/>
+            <h1 class="fs-3 fw-bolder">{{c}} 작가</h1>
+            <h4 class="lead">{{c.intro}}</h4>
+            </div>
+            <div class="col-lg-4 pt-5">
+                        <h1>Contact</h1>
+                    <hr class="my-4" style="border:0;width:50px;height:2px;background: #fff;">
+        <p class=" mb-0">이메일 : {{c.email}}</p>
+        <p class=" mb-0">{{c.contact}}</p>
+        <p class=" mb-0">연락가능 시간 : 0시~0시</p>
+            </div>
+        </div>
+        </div>
+
+
+        {% endif %}
+        {% endfor %}
+        {% elif user.socialaccount_set.all.0.get_avatar_url %}
         <img class="img-fluid rounded-circle mb-4" width="150px" src="{{user.socialaccount_set.all.0.get_avatar_url}}"/>
+        <h1 class="text-white fs-3 fw-bolder" style="color:pink">{{user}}</h1>
+        <p class="text-white mb-0">{{user.email}}</p>
         {% else %}
         <img class="img-fluid rounded-circle mb-4" width="150px"
              src="https://doitdjango.com/avatar/id/403/06906de089c1792c/svg/{{user.email}}/">
-        {% endif %}
         <h1 class="text-white fs-3 fw-bolder" style="color:pink">{{user}}</h1>
-        <p class="text-white-50 mb-0">{{user.email}}</p>
+        <p class="text-white mb-0">{{user.email}}</p>
+        {% endif %}
     </div>
 </header>
 
 <div class="container px-2 px-lg-2 mt-4">
     <h5 class="float-left pt-1">
-        나의 작품 리스트 - {{my_works.count}}개의 작품
+        나의 작품 리스트
     </h5>
-    <!-- 작성 권한이 있는 user에게만 새로운 포스트 만들 수 있도록 -->
-    {% if user.is_authenticated %}
-    {% if user.is_staff or user.is_superuser %}
     <a class="btn btn-small float-right btn-dark" style="color:pink" href="/artwork/create_work">
         <i class="fas fa-plus"></i> 새 작품등록
     </a>
     <div style="clear:both;"></div>
-    {% endif %}
-    {% endif %}
     <hr size="10px">
     <!-- Work List-->
     <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 ">
         <!-- 로그인 user랑 work author가 같은 작품 리스트만 보이도록-->
-        {% if my_works.exists %}
-        {% for work in my_works %}
+        {% if creator_work %}
+        {% for work in creator_work %}
         {% if user.is_authenticated and user == work.author %}
         <div class="col my-3">
             <div class="card border-light h-100" id="work-{{work.pk}}">
@@ -59,7 +80,7 @@
                     {% if work.head_image %} <!-- 템플릿 태그 조건문. head_image 있을 때 -->
                     <img class="card-img-top" src="{{ work.head_image.url }}" alt="{{work}}의 head image"/>
                     {% else %} <!-- head_image 없을 때 random images 고정-->
-                    <img class="card-img-top" src="https://picsum.photos/seed/{{work.id}}/800/900"
+                    <img class="card-img-top" src="https://picsum.photos/seed/{{work.id}}/900/650"
                          alt="random image"/>
                     {% endif %}
                 </a>
@@ -80,8 +101,37 @@
         {% endif %}
         {% endfor %}
         {% else %}
-        <h2 class="text-center pt-2 pb-5 mb-5">아직 작품이 없습니다.</h2>
+        {% for work in work_list %}
+        {% if user.is_authenticated and user == work.author %}
+        <div class="col my-3">
+            <div class="card border-light h-100">
+                <!-- Work image-->
+                <a href="{{ work.get_absolute_url }}">
+                    {% if work.head_image %} <!-- 템플릿 태그 조건문. head_image 있을 때 -->
+                    <img class="card-img-top" src="{{ work.head_image.url }}" alt="{{work}}의 head image"/>
+                    {% else %} <!-- head_image 없을 때 random images 고정-->
+                    <img class="card-img-top" src="https://picsum.photos/seed/{{work.id}}/900/650"
+                         alt="random image"/>
+                    {% endif %}
+                </a>
+                <!-- Work details-->
+                <div class="card-body p-1">
+                    <div class="pt-1">
+                        <!-- work title-->
+                        <div class="mb-1" style="color:gray;font-size:12px">{{work.category}}</div>
+                        <a class="text-decoration-none text-dark" href="{{ work.get_absolute_url }}">
+                            <h5 class="fw-bolder">{{work.title}}</h5>
+                        </a>
+                        <div class="mb-1" style="font-size:15px">{{work.creator}}<span> 작가</span>
+                            <h5 style='float:right'>{{work.price}}원~</h5></div>
+                    </div>
+                </div>
+            </div>
+        </div>
         {% endif %}
+        {% endfor %}
+        {% endif %}
+
     </div>
     <!-- Pagination-->
     {% if is_paginated %}

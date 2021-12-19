@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from artwork.models import Work, Creator, Comment, Category
+from django.db.models import Q
 
 # Create your views here.
 
@@ -17,7 +18,7 @@ def about_us(request):
 
 def my_page(request):
     creator_list = Creator.objects.all()
-    comment_list = Comment.objects.all()
+    comment_list = Comment.objects.all().order_by('-pk')
     return render(request, 'single_pages/my_page.html',
                   {
                       'creator_list': creator_list,
@@ -25,24 +26,21 @@ def my_page(request):
                   })
 
 def my_work(request):
-    my_works = Work.objects.order_by('-pk')
+    work_list = Work.objects.all().order_by('-pk')
+
     return render(request, 'single_pages/my_work.html',
                   {
-                      'my_works' : my_works
+                      'work_list' : work_list
                   })
 
-def category_page(request, slug): # 카테고리 페이지
-    if slug == 'no_category' :
-        category = '미분류'
-        work_list = Work.objects.filter(category=None)
-    else :
-        category = Category.objects.get(slug=slug)
-        work_list = Work.objects.filter(category=category)
-    return render(request, 'artwork/about_us.html',
+def creator_page(request,slug):
+    creator = Creator.objects.get(slug=slug)
+    creator_list = Creator.objects.all()
+    creator_work = creator.work_set.all().order_by('-pk')
+
+    return render(request, 'single_pages/my_work.html',
                   {
-                      'work_list' : work_list,
-                      'categories' : Category.objects.all(),
-                      'no_category_work_count' : Work.objects.filter(category=None).count(),
-                      'category' : category
-                  }
-                  )
+                      'creator' : creator,
+                      'creator_list' : creator_list,
+                      'creator_work' : creator_work
+                  })

@@ -45,7 +45,7 @@ class Creator(models.Model):
         return f'{self.name}'
 
     def get_absolute_url(self):
-        return f'/artwork/{self.slug}'
+        return f'/mypage/{self.slug}'
 
     def get_avatar_url(self):
         if self.author.socialaccount_set.exists() :
@@ -61,6 +61,7 @@ class Work(models.Model):
 
     # 이미지 파일 저장할 수 있는 imageField
     head_image = models.ImageField(upload_to='artwork/images/%Y/%M/%d/', blank=True)
+    content_image = models.ImageField(upload_to='artwork/images/%Y/%M/%d/', blank=True)
 
     author = models.ForeignKey(User,on_delete=models.CASCADE) # 다대일관계
     creator = models.ForeignKey(Creator,null=True, blank=True, on_delete=models.SET_NULL)

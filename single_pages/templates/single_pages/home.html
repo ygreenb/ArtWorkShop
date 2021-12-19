@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="{% static 'artwork/bootstrap/bootstrap.min.css' %}" type="text/css" media="screen">
     <link rel="stylesheet" href="{% static 'single_pages/css/home.css' %}" type="text/css" media="screen">
     <script src="https://kit.fontawesome.com/6c6fea15a8.js" crossorigin="anonymous"></script>
-    <title>ArtWork</title>
+    <title>ARTWORK</title>
 </head>
 <body class="pt-5">
 <!--navbar-->
@@ -44,7 +44,7 @@
                         {% if work.head_image %} <!-- 템플릿 태그 조건문. head_image 있을 때 -->
                         <img class="card-img-top" src="{{ work.head_image.url }}" alt="{{work}}의 head image"/>
                         {% else %} <!-- head_image 없을 때 random images 고정-->
-                        <img class="card-img-top" src="https://picsum.photos/seed/{{work.id}}/800/1000"
+                        <img class="card-img-top" src="https://picsum.photos/seed/{{work.id}}/800/900"
                              alt="random image"/>
                         {% endif %}
                     </a>

@@ -88,8 +88,6 @@ WSGI_APPLICATION = 'shoppingmall.wsgi.application'
 # PostgreSQL 사용하기 위해 수정 -> .env.dev에 있는 값 가져옴
 DATABASES = {
     'default': {
-#        'ENGINE': 'django.db.backends.sqlite3',
-#        'NAME': BASE_DIR / 'db.sqlite3',
         'ENGINE' : os.environ.get("SQL_ENGINE", 'django.db.backends.sqlite3'),
         'NAME' : os.environ.get("SQL_DATABASE", os.path.join(BASE_DIR,'db.sqlite3')),
         'USER' : os.environ.get("SQL_USER", 'user'),

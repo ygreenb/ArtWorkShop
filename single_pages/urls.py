@@ -7,4 +7,5 @@ urlpatterns = [ #서버IP/
     path('about_us/', views.about_us), #서버IP/about_us/ # 회사소개 페이지
     path('mypage/', views.my_page),  # 서버IP/mypage/ # 마이페이지
     path('mywork/', views.my_work),  # 서버IP/mywork/ # 나의작품리스트
+    path('mypage/<str:slug>', views.creator_page),
 ]
