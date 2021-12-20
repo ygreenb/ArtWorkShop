@@ -1,0 +1,23 @@
+{% extends 'artwork/base.html' %}
+{% load crispy_forms_tags %}
+{% block head_title %}
+ArtWork | Create Work
+{% endblock %}
+{% block main-area %}
+<div class="container px-5 px-lg-5 my-4">
+    <h1>새 Creator 만들기</h1>
+    <hr/>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{form | crispy}}
+        <div id="div_id_tags_str"> <!--태그를 사용자에 의해 직접 입력받도록 -->
+            <input type="text" name="tags_str" required id="id_tags_str"
+                   class="textinput textInput form-control">
+        </div>
+        <br>
+        <button type="submit" class="btn btn-outline-dark float-right"
+                style="background-color:pink;border-color:pink">프로필 생성</button>
+    </form>
+        {{form.media}}
+</div>
+{% endblock %}

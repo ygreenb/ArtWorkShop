@@ -26,23 +26,26 @@
         {% for c in creator_list %}
         {% if creator == c %}
         <div class="px-5 mx-5">
-        <div class="row">
-            <div class="col-lg-7">
-                          <img class="img-fluid rounded-circle mb-4" width="150px" src="{{c.profile_image.url}}"/>
-            <h1 class="fs-3 fw-bolder">{{c}} 작가</h1>
-            <h4 class="lead">{{c.intro}}</h4>
-            </div>
-            <div class="col-lg-4 pt-5">
-                        <h1>Contact</h1>
+            <div class="row">
+                <div class="col-lg-7">
+                    {% if c.profile_image.exist %}
+                    <img class="img-fluid rounded-circle mb-4" width="150px" src="{{c.profile_image.url}}"/>
+                    {% else %}
+                    <img class="img-fluid rounded-circle mb-4" width="150px"
+                         src="{{user.socialaccount_set.all.0.get_avatar_url}}"/>
+                    {% endif %}
+                    <h1 class="fs-3 fw-bolder">{{c}} 작가</h1>
+                    <h4 class="lead">{{c.intro}}</h4>
+                </div>
+                <div class="col-lg-4 pt-5">
+                    <h1>Contact</h1>
                     <hr class="my-4" style="border:0;width:50px;height:2px;background: #fff;">
-        <p class=" mb-0">이메일 : {{c.email}}</p>
-        <p class=" mb-0">{{c.contact}}</p>
-        <p class=" mb-0">연락가능 시간 : 0시~0시</p>
+                    <p class=" mb-0">이메일 : {{c.email}}</p>
+                    <p class=" mb-0">{{c.contact}}</p>
+                    <p class=" mb-0">연락가능 시간 : 0시~0시</p>
+                </div>
             </div>
         </div>
-        </div>
-
-
         {% endif %}
         {% endfor %}
         {% elif user.socialaccount_set.all.0.get_avatar_url %}

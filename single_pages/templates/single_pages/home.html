@@ -44,7 +44,7 @@
                         {% if work.head_image %} <!-- 템플릿 태그 조건문. head_image 있을 때 -->
                         <img class="card-img-top" src="{{ work.head_image.url }}" alt="{{work}}의 head image"/>
                         {% else %} <!-- head_image 없을 때 random images 고정-->
-                        <img class="card-img-top" src="https://picsum.photos/seed/{{work.id}}/800/900"
+                        <img class="card-img-top" src="https://picsum.photos/seed/{{work.id}}/900/650"
                              alt="random image"/>
                         {% endif %}
                     </a>
